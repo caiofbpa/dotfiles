@@ -1,0 +1,30 @@
+[user]
+	name = Caio Fernando Bertoldi Paes de Andrade
+	email = caiofbpa@icloud.com
+
+[core]
+	excludesfile = ~/.gitignore
+
+[alias]
+	lg = log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %f %Cgreen(%cr)%Creset' --abbrev-commit --date=relative
+
+[filter "media"]
+	required = true
+	clean = git media clean %f
+	smudge = git media smudge %f
+
+[i18n]
+	logoutputencoding = utf8
+	commitencoding = utf8
+
+[filter "hawser"]
+	clean = git hawser clean %f
+	smudge = git hawser smudge %f
+	required = true
+[filter "lfs"]
+	clean = git-lfs clean -- %f
+	smudge = git-lfs smudge -- %f
+	process = git-lfs filter-process
+	required = true
+[init]
+	defaultBranch = master
