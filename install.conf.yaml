@@ -16,17 +16,3 @@
       path: zshrc
     ~/.oh-my-zsh/themes/caiofbpa.zsh-theme:
       path: caiofbpa.zsh-theme
-
-- shell:
-  - xcode-select --install
-  - brew || /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install.sh)"
-  - omz || sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
-  - brew install zsh-completions
-  - brew install zsh-syntax-highlighting
-  - brew install zsh-history-substring-search
-  - brew install pyenv
-  - brew install nodenv
-  - brew install rbenv
-  - brew install autojump
-  - brew install ack
-  - brew install tree
