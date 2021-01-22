@@ -16,3 +16,14 @@
       path: zshrc
     ~/.oh-my-zsh/themes/caiofbpa.zsh-theme:
       path: caiofbpa.zsh-theme
+
+- shell:  
+  - brew install zsh-completions
+  - brew install zsh-syntax-highlighting
+  - brew install zsh-history-substring-search
+  - brew install pyenv
+  - brew install nodenv
+  - brew install rbenv
+  - brew install autojump
+  - brew install ack
+  - brew install tree
