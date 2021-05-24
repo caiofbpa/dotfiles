@@ -12,9 +12,11 @@ fpath=(`brew --prefix`/share/zsh-completions $fpath)
 
 eval $(/usr/libexec/path_helper -s)
 
-eval "$(pyenv init -)"
 eval "$(nodenv init -)"
 eval "$(rbenv init -)"
+export PYENV_ROOT="$HOME/.pyenv"
+export PATH="$PYENV_ROOT/bin:$PATH"
+eval "$(pyenv init --path)"
 
 export PYTHONDONTWRITEBYTECODE=1
 
