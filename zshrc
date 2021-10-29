@@ -3,7 +3,7 @@ ZSH_THEME="caiofbpa"
 plugins=(docker kubectl)
 source $ZSH/oh-my-zsh.sh
 
-[ -f /opt/homebrew/bin/brew ] && eval "$(/opt/homebrew/bin/brew shellenv)"
+eval "$(brew shellenv)"
 
 source $HOMEBREW_PREFIX/etc/profile.d/autojump.sh
 source $HOMEBREW_PREFIX/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
