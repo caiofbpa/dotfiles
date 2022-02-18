@@ -23,7 +23,4 @@ export PYTHONDONTWRITEBYTECODE=1
 
 export PATH="$HOMEBREW_PREFIX/bin:$PATH"
 
-export GOOGLE_USERNAME=caio@mercos.com
-export GOOGLE_SP_ID=139191105735
-export GOOGLE_IDP_ID=C01tez3v6
 export AWS_PROFILE=default
