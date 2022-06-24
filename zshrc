@@ -22,5 +22,6 @@ eval "$(pyenv init --path)"
 export PYTHONDONTWRITEBYTECODE=1
 
 export PATH="$HOMEBREW_PREFIX/bin:$PATH"
+export PATH="$PATH:$HOME/.dotnet/tools"
 
 export AWS_PROFILE=default
