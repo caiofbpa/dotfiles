@@ -13,15 +13,21 @@ fpath=($HOMEBREW_PREFIX/share/zsh-completions $fpath)
 
 eval $(/usr/libexec/path_helper -s)
 
+export PATH="$HOMEBREW_PREFIX/bin:$PATH"
+
+# Node
 eval "$(nodenv init -)"
+
+# Ruby
 eval "$(rbenv init -)"
+
+# Python
+export PYTHONDONTWRITEBYTECODE=1
 export PYENV_ROOT="$HOME/.pyenv"
 export PATH="$PYENV_ROOT/bin:$PATH"
 eval "$(pyenv init --path)"
 
-export PYTHONDONTWRITEBYTECODE=1
-
-export PATH="$HOMEBREW_PREFIX/bin:$PATH"
+# .NET
 export PATH="$PATH:$HOME/.dotnet/tools"
 
 export AWS_PROFILE=default
