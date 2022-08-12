@@ -1,0 +1,6 @@
+showInvisibles = true
+include = "{*,.*}"
+tabSize = 4
+softTabs = true
+excludeDirectoriesInFileChooser = "{$excludeDirectoriesInFileChooser,node_modules}"
+excludeDirectoriesInFolderSearch = "{$excludeDirectoriesInFolderSearch,node_modules}"

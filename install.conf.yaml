@@ -12,21 +12,23 @@
       path: gitconfig
     ~/.gitignore:
       path: gitignore
+    ~/.tm_properties:
+      path: tm_properties
     ~/.zshrc:
       path: zshrc
     ~/.oh-my-zsh/themes/caiofbpa.zsh-theme:
       path: caiofbpa.zsh-theme
 
-- shell:  
-  - brew install zsh-completions
-  - brew install zsh-syntax-highlighting
-  - brew install zsh-history-substring-search
-  - brew install pyenv
-  - brew install nodenv
-  - brew install rbenv
-  - brew install autojump
-  - brew install ack
-  - brew install tree
-  - brew install pycharm
-  - brew install github
-  - brew install textmate
+- shell:
+  - brew install -f zsh-completions
+  - brew install -f zsh-syntax-highlighting
+  - brew install -f zsh-history-substring-search
+  - brew install -f pyenv
+  - brew install -f nodenv
+  - brew install -f rbenv
+  - brew install -f autojump
+  - brew install -f ack
+  - brew install -f tree
+  - brew install -f pycharm
+  - brew install -f github
+  - brew install -f textmate
