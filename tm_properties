@@ -2,5 +2,5 @@ showInvisibles = true
 include = "{*,.*}"
 tabSize = 4
 softTabs = true
-excludeDirectoriesInFileChooser = "{$excludeDirectoriesInFileChooser,node_modules}"
-excludeDirectoriesInFolderSearch = "{$excludeDirectoriesInFolderSearch,node_modules}"
+excludeDirectoriesInFileChooser = "{$excludeDirectoriesInFileChooser,.git,node_modules,bin,obj}"
+excludeDirectoriesInFolderSearch = "{$excludeDirectoriesInFolderSearch,.git,node_modules,bin,obj}"
