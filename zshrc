@@ -18,9 +18,6 @@ export PATH="$HOMEBREW_PREFIX/bin:$PATH"
 # Node
 eval "$(nodenv init -)"
 
-# Ruby
-eval "$(rbenv init -)"
-
 # Python
 export PYTHONDONTWRITEBYTECODE=1
 export PYENV_ROOT="$HOME/.pyenv"

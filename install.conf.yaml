@@ -25,7 +25,6 @@
   - brew install -f zsh-history-substring-search
   - brew install -f pyenv
   - brew install -f nodenv
-  - brew install -f rbenv
   - brew install -f autojump
   - brew install -f ack
   - brew install -f tree
