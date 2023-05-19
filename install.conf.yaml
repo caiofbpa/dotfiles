@@ -28,6 +28,5 @@
   - brew install -f autojump
   - brew install -f ack
   - brew install -f tree
-  - brew install -f pycharm
   - brew install -f github
   - brew install -f textmate
