@@ -4,6 +4,9 @@ ZSH_THEME="caiofbpa"
 plugins=(docker kubectl)
 source $ZSH/oh-my-zsh.sh
 
+# PATH
+eval $(/usr/libexec/path_helper -s)
+
 # brew
 [ -f /opt/homebrew/bin/brew ] && eval "$(/opt/homebrew/bin/brew shellenv)"
 eval "$(brew shellenv)"
@@ -13,9 +16,6 @@ source $HOMEBREW_PREFIX/etc/profile.d/autojump.sh
 source $HOMEBREW_PREFIX/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 source $HOMEBREW_PREFIX/share/zsh-history-substring-search/zsh-history-substring-search.zsh
 fpath=($HOMEBREW_PREFIX/share/zsh-completions $fpath)
-
-# PATH
-eval $(/usr/libexec/path_helper -s)
 
 # GitHub
 export GITHUB_TOKEN=
