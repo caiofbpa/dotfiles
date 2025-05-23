@@ -17,9 +17,6 @@ source $HOMEBREW_PREFIX/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zs
 source $HOMEBREW_PREFIX/share/zsh-history-substring-search/zsh-history-substring-search.zsh
 fpath=($HOMEBREW_PREFIX/share/zsh-completions $fpath)
 
-# GitHub
-export GITHUB_TOKEN=
-
 # Node
 eval "$(nodenv init -)"
 
@@ -31,10 +28,6 @@ eval "$(pyenv init --path)"
 
 # dotnet
 export PATH="$PATH:$HOME/.dotnet/tools"
-export DOTNET_ROOT="/opt/homebrew/opt/dotnet@6/libexec"
-export PATH="/opt/homebrew/opt/dotnet@6/bin:$PATH"
-export NUGET_RESTORE_GITHUB_USER=caiofbpa
-export NUGET_RESTORE_GITHUB_PAT=$GITHUB_TOKEN
 
 # bun
 export BUN_INSTALL="$HOME/.bun"
