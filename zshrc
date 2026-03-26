@@ -33,3 +33,70 @@ export PATH="$PATH:$HOME/.dotnet/tools"
 export BUN_INSTALL="$HOME/.bun"
 export PATH="$BUN_INSTALL/bin:$PATH"
 [ -s "$BUN_INSTALL/_bun" ] && source "$BUN_INSTALL/_bun"
+
+# git
+fresh_repos() {
+  emulate -L zsh
+
+  local repo branch upstream counts local_only upstream_only
+  local -a repos
+
+  repos=(./*(/N) ./*/*(/N))
+
+  if (( ${#repos[@]} == 0 )); then
+    echo "No git repositories found under $PWD"
+    return 0
+  fi
+
+  for repo in "${repos[@]}"; do
+    if ! git -C "$repo" rev-parse --is-inside-work-tree >/dev/null 2>&1; then
+      continue
+    fi
+
+    if [[ -n "$(git -C "$repo" status --porcelain --untracked-files=normal 2>/dev/null)" ]]; then
+      echo "Skipping $repo (dirty)"
+      continue
+    fi
+
+    branch=$(git -C "$repo" symbolic-ref --quiet --short HEAD 2>/dev/null) || {
+      echo "Skipping $repo (detached HEAD)"
+      continue
+    }
+
+    upstream=$(git -C "$repo" rev-parse --abbrev-ref --symbolic-full-name '@{upstream}' 2>/dev/null) || {
+      echo "Skipping $repo (no upstream for $branch)"
+      continue
+    }
+
+    counts=$(git -C "$repo" rev-list --left-right --count HEAD..."$upstream" 2>/dev/null) || {
+      echo "Skipping $repo (unable to compare $branch and $upstream)"
+      continue
+    }
+
+    local_only=${counts%%[[:space:]]*}
+    upstream_only=${counts##*[[:space:]]}
+
+    if [[ "$local_only" != "0" && "$upstream_only" != "0" ]]; then
+      echo "Skipping $repo ($branch has diverged from $upstream)"
+      continue
+    fi
+
+    if [[ "$local_only" != "0" ]]; then
+      echo "Skipping $repo ($branch is ahead of $upstream)"
+      continue
+    fi
+
+    if [[ "$upstream_only" == "0" ]]; then
+      echo "Skipping $repo (already up to date)"
+      continue
+    fi
+
+    echo "Fast-forwarding $repo ($branch <- $upstream)"
+    git -C "$repo" merge --ff-only "$upstream"
+  done
+}
+
+alias fresh='fresh_repos'
+
+# opencode
+export PATH=/Users/caiofbertoldi/.opencode/bin:$PATH
