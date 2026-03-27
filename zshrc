@@ -38,7 +38,7 @@ export PATH="$BUN_INSTALL/bin:$PATH"
 fresh_repos() {
   emulate -L zsh
 
-  local repo branch upstream counts local_only upstream_only
+  local repo branch upstream counts local_only upstream_only default_ref default_branch
   local -a repos
 
   repos=(./*(/N) ./*/*(/N))
@@ -53,23 +53,33 @@ fresh_repos() {
       continue
     fi
 
-    if [[ -n "$(git -C "$repo" status --porcelain --untracked-files=normal 2>/dev/null)" ]]; then
-      echo "Skipping $repo (dirty)"
-      continue
-    fi
-
     branch=$(git -C "$repo" symbolic-ref --quiet --short HEAD 2>/dev/null) || {
-      echo "Skipping $repo (detached HEAD)"
+      print -r -- "${CAIOFBPA_COLOR_ERROR}${repo} (detached HEAD)${CAIOFBPA_COLOR_RESET}"
       continue
     }
 
+    default_ref=$(git -C "$repo" symbolic-ref --quiet --short refs/remotes/origin/HEAD 2>/dev/null)
+    if [[ -z "$default_ref" ]]; then
+      default_ref=$(git -C "$repo" for-each-ref --count=1 --format='%(refname:short)' 'refs/remotes/*/HEAD' 2>/dev/null)
+    fi
+    default_branch=${default_ref#*/}
+    if [[ -n "$default_branch" && "$branch" != "$default_branch" ]]; then
+      print -r -- "${CAIOFBPA_COLOR_WARNING}${repo} ($branch is not the default branch: $default_branch)${CAIOFBPA_COLOR_RESET}"
+      continue
+    fi
+
+    if [[ -n "$(git -C "$repo" status --porcelain --untracked-files=normal 2>/dev/null)" ]]; then
+      print -r -- "${CAIOFBPA_COLOR_ERROR}${repo} (dirty)${CAIOFBPA_COLOR_RESET}"
+      continue
+    fi
+
     upstream=$(git -C "$repo" rev-parse --abbrev-ref --symbolic-full-name '@{upstream}' 2>/dev/null) || {
-      echo "Skipping $repo (no upstream for $branch)"
+      print -r -- "${CAIOFBPA_COLOR_ERROR}${repo} (no upstream for $branch)${CAIOFBPA_COLOR_RESET}"
       continue
     }
 
     counts=$(git -C "$repo" rev-list --left-right --count HEAD..."$upstream" 2>/dev/null) || {
-      echo "Skipping $repo (unable to compare $branch and $upstream)"
+      print -r -- "${CAIOFBPA_COLOR_ERROR}${repo} (unable to compare $branch and $upstream)${CAIOFBPA_COLOR_RESET}"
       continue
     }
 
@@ -77,22 +87,24 @@ fresh_repos() {
     upstream_only=${counts##*[[:space:]]}
 
     if [[ "$local_only" != "0" && "$upstream_only" != "0" ]]; then
-      echo "Skipping $repo ($branch has diverged from $upstream)"
+      print -r -- "${CAIOFBPA_COLOR_ERROR}${repo} ($branch has diverged from $upstream)${CAIOFBPA_COLOR_RESET}"
       continue
     fi
 
     if [[ "$local_only" != "0" ]]; then
-      echo "Skipping $repo ($branch is ahead of $upstream)"
+      print -r -- "${CAIOFBPA_COLOR_ERROR}${repo} ($branch is ahead of $upstream)${CAIOFBPA_COLOR_RESET}"
       continue
     fi
 
     if [[ "$upstream_only" == "0" ]]; then
-      echo "Skipping $repo (already up to date)"
+      print -r -- "${CAIOFBPA_COLOR_SUCCESS}${repo} (already up to date)${CAIOFBPA_COLOR_RESET}"
       continue
     fi
 
-    echo "Fast-forwarding $repo ($branch <- $upstream)"
-    git -C "$repo" merge --ff-only "$upstream"
+    print -r -- "${repo} (fast-forwarding $branch <- $upstream)"
+    if ! git -C "$repo" merge --ff-only "$upstream" >/dev/null 2>&1; then
+      print -r -- "${CAIOFBPA_COLOR_ERROR}${repo} (failed to fast-forward $branch <- $upstream)${CAIOFBPA_COLOR_RESET}"
+    fi
   done
 }
 
