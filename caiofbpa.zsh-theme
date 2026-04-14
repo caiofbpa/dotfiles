@@ -1,7 +1,7 @@
-typeset -g CAIOFBPA_COLOR_SUCCESS="${fg[green]}"
-typeset -g CAIOFBPA_COLOR_WARNING="${fg[yellow]}"
-typeset -g CAIOFBPA_COLOR_ERROR="${fg[red]}"
-typeset -g CAIOFBPA_COLOR_RESET="${reset_color}"
+typeset -gx CAIOFBPA_COLOR_SUCCESS="${fg[green]}"
+typeset -gx CAIOFBPA_COLOR_WARNING="${fg[yellow]}"
+typeset -gx CAIOFBPA_COLOR_ERROR="${fg[red]}"
+typeset -gx CAIOFBPA_COLOR_RESET="${reset_color}"
 
 PROMPT='$(git_prompt_info)%{${CAIOFBPA_COLOR_WARNING}%}\$%{${CAIOFBPA_COLOR_RESET}%} '
 

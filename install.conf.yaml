@@ -6,6 +6,7 @@
 
 - create:
   - ~/Developer
+  - ~/bin
 
 - link:
     ~/.gitconfig:
@@ -18,6 +19,8 @@
       path: zshrc
     ~/.oh-my-zsh/themes/caiofbpa.zsh-theme:
       path: caiofbpa.zsh-theme
+    ~/bin/fresh:
+      path: bin/fresh
 
 - shell:
   - brew install -f zsh-completions
