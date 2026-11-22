@@ -20,6 +20,10 @@
     stderr: true
 
 - link:
+    ~/AGENTS.md:
+      path: AGENTS.md
+    ~/.claude/CLAUDE.md:
+      path: AGENTS.md
     ~/.gitconfig:
       path: gitconfig
     ~/.gitignore:

@@ -6,7 +6,7 @@ source $ZSH/oh-my-zsh.sh
 
 # PATH
 eval $(/usr/libexec/path_helper -s)
-export PATH="$HOME/bin:$PATH"
+export PATH="$HOME/.local/bin:$HOME/bin:$HOMEBREW_PREFIX/bin:$PATH"
 
 # brew
 [ -f /opt/homebrew/bin/brew ] && eval "$(/opt/homebrew/bin/brew shellenv)"
@@ -29,6 +29,7 @@ eval "$(pyenv init --path)"
 
 # dotnet
 export PATH="$PATH:$HOME/.dotnet/tools"
+export DOTNET_ROOT=/opt/homebrew/opt/dotnet/libexec  # so dotnet global tools (seqcli) find the runtime
 
 # bun
 export BUN_INSTALL="$HOME/.bun"
@@ -37,3 +38,10 @@ export PATH="$BUN_INSTALL/bin:$PATH"
 
 # opencode
 export PATH=/Users/caiofbertoldi/.opencode/bin:$PATH
+
+# >>> grok installer >>>
+export PATH="$HOME/.grok/bin:$PATH"
+# <<< grok installer <<<
+
+# Added by Antigravity IDE
+export PATH="/Users/caiofbertoldi/.antigravity-ide/antigravity-ide/bin:$PATH"
