@@ -8,6 +8,17 @@
   - ~/Developer
   - ~/bin
 
+# Oh-My-Zsh must exist before the link step creates ~/.oh-my-zsh/themes.
+# A dir without oh-my-zsh.sh is a broken install: back it up, then clone.
+- shell:
+  - description: Installing Oh-My-Zsh
+    command: >-
+      [ -f ~/.oh-my-zsh/oh-my-zsh.sh ] || {
+      [ ! -e ~/.oh-my-zsh ] || mv ~/.oh-my-zsh ~/.oh-my-zsh.bak.$(date +%s);
+      git clone --depth=1 https://github.com/ohmyzsh/ohmyzsh.git ~/.oh-my-zsh; }
+    stdout: true
+    stderr: true
+
 - link:
     ~/.gitconfig:
       path: gitconfig
