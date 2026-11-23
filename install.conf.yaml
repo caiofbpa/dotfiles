@@ -38,11 +38,54 @@
       path: bin/fresh
 
 - shell:
-  - brew install -f zsh-completions
-  - brew install -f zsh-syntax-highlighting
-  - brew install -f zsh-history-substring-search
-  - brew install -f pyenv
-  - brew install -f nodenv
-  - brew install -f autojump
+  # Formulae, sorted by formula name (tap prefix ignored).
   - brew install -f ack
+  - brew install -f atlassian/acli/acli
+  - brew install -f autojump
+  - brew install -f awscli
+  - brew install -f gh
+  - brew install -f git
+  - brew install -f git-lfs
+  - brew install -f mas
+  - brew install -f nodenv
+  - brew install -f pyenv
+  - brew install -f hashicorp/tap/terraform
   - brew install -f tree
+  - brew install -f yt-dlp
+  - brew install -f zsh-completions
+  - brew install -f zsh-history-substring-search
+  - brew install -f zsh-syntax-highlighting
+
+  # Casks. Slack and WhatsApp come from casks, not mas, to get fixes before App Store review.
+  - brew install -f --cask chatgpt
+  - brew install -f --cask claude
+  - brew install -f --cask claude-code@latest
+  - brew install -f --cask codex
+  - brew install -f --cask codexbar
+  - brew install -f --cask cursor
+  - brew install -f --cask cursor-cli
+  - brew install -f --cask docker-desktop
+  - brew install -f --cask elgato-studio
+  - brew install -f --cask gcloud-cli
+  - brew install -f --cask github
+  - brew install -f --cask github-copilot-app
+  - brew install -f --cask google-chrome
+  - brew install -f --cask grok-bot
+  - brew install -f --cask iina
+  - brew install -f --cask lm-studio
+  - brew install -f --cask opencode-desktop
+  - brew install -f --cask sentry-cli
+  - brew install -f --cask slack
+  - brew install -f --cask visual-studio-code
+  - brew install -f --cask whatsapp
+  - brew install -f --cask zoom
+
+  # App Store apps, sorted by app name. mas needs a manual App Store sign-in first
+  # and installs only apps this Apple ID already has.
+  - mas install 1358823008  # Flighty
+  - mas install 375589283   # Parcel
+  - mas install 6475002485  # Reeder
+  - mas install 1153157709  # Speedtest
+
+  # Other installers. zshrc already adds ~/.grok/bin to PATH; skip the installer when grok exists.
+  - '[ -x ~/.grok/bin/grok ] || curl -fsSL https://x.ai/cli/install.sh | bash'
