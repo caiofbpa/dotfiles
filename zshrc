@@ -39,9 +39,12 @@ export PATH="$BUN_INSTALL/bin:$PATH"
 # opencode
 export PATH=/Users/caiofbertoldi/.opencode/bin:$PATH
 
-# >>> grok installer >>>
-export PATH="$HOME/.grok/bin:$PATH"
-# <<< grok installer <<<
 
 # Added by Antigravity IDE
 export PATH="/Users/caiofbertoldi/.antigravity-ide/antigravity-ide/bin:$PATH"
+
+# >>> grok installer >>>
+export PATH="$HOME/.grok/bin:$PATH"
+fpath=(~/.grok/completions/zsh $fpath)
+autoload -Uz compinit && compinit -C
+# <<< grok installer <<<
