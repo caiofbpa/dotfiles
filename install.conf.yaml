@@ -37,6 +37,21 @@
     ~/bin/fresh:
       path: bin/fresh
 
+# Point ~/Downloads at iCloud Drive > Downloads. A plain link step cannot do this:
+# macOS puts a deny-delete ACL on ~/Downloads. The step removes that ACL, then
+# removes the folder only when it is empty, so no download is lost.
+- shell:
+  - description: Linking ~/Downloads to iCloud Drive
+    command: >-
+      icloud="$HOME/Library/Mobile Documents/com~apple~CloudDocs";
+      [ -d "$icloud" ] || { echo "Turn on iCloud Drive, then run ./install again."; exit 1; };
+      mkdir -p "$icloud/Downloads";
+      if [ -e ~/Downloads ] && [ ! -L ~/Downloads ]; then
+      chmod -N ~/Downloads; rm -f ~/Downloads/.DS_Store; rmdir ~/Downloads || exit 1; fi;
+      ln -sfn "$icloud/Downloads" ~/Downloads
+    stdout: true
+    stderr: true
+
 - shell:
   # Formulae, sorted by formula name (tap prefix ignored).
   - brew install -f ack
