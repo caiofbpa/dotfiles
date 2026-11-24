@@ -93,8 +93,9 @@
 
 # Point ~/Downloads at iCloud Drive > Downloads, in the Finder sidebar and in the Dock.
 # A plain link step cannot do this: macOS puts a deny-delete ACL on ~/Downloads.
-# The step removes that ACL, then removes the folder only when it is empty, so no
-# download is lost. It runs after the brew step because it needs dockutil.
+# The step removes that ACL and the hidden .DS_Store and .localized files. It then
+# removes the folder only when it is empty, so no download is lost. It runs after
+# the brew step because it needs dockutil.
 - shell:
   - description: Linking ~/Downloads to iCloud Drive
     command: >-
@@ -102,7 +103,7 @@
       [ -d "$icloud" ] || { echo "Turn on iCloud Drive, then run ./install again."; exit 1; };
       mkdir -p "$icloud/Downloads";
       if [ -e ~/Downloads ] && [ ! -L ~/Downloads ]; then
-      chmod -N ~/Downloads; rm -f ~/Downloads/.DS_Store; rmdir ~/Downloads || exit 1; fi;
+      chmod -N ~/Downloads; rm -f ~/Downloads/.DS_Store ~/Downloads/.localized; rmdir ~/Downloads || exit 1; fi;
       ln -sfn "$icloud/Downloads" ~/Downloads;
       swift -suppress-warnings finder-favorite.swift "$icloud/Downloads" || exit 1;
       defaults read com.apple.dock persistent-others | grep -q "CloudDocs/Downloads/" ||
